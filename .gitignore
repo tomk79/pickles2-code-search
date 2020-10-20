@@ -1,3 +1,6 @@
+.DS_Store
+Thumbs.db
+
 # Logs
 logs
 *.log
@@ -40,6 +43,9 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+package-lock.json
+vendor/
+composer.lock
 
 # TypeScript v1 declaration files
 typings/
@@ -80,7 +86,7 @@ typings/
 
 # Nuxt.js build / generate output
 .nuxt
-dist
+# dist
 
 # Gatsby files
 .cache/

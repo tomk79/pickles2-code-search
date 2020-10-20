@@ -1,0 +1,47 @@
+{
+  "name": "@tomk79/pickles2-code-search",
+  "version": "0.1.0",
+  "private": false,
+  "description": "",
+  "main": "src/js/main.js",
+  "scripts": {
+    "start": "node ./tests/app/server/server.js;",
+    "up": "node ./tests/app/server/server.js;",
+    "preview": "gulp preview;",
+    "test": "mocha --ui tdd ./tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomk79/pickles2-code-search.git"
+  },
+  "author": "Tomoya Koyanagi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomk79/pickles2-code-search/issues"
+  },
+  "homepage": "https://github.com/tomk79/pickles2-code-search#readme",
+  "dependencies": {
+    "iterate79": "^1.0.0",
+    "utils79": "0.0.4"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.1",
+    "bootstrap": "^4.3.1",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^2.1.2",
+    "html-loader": "^0.5.5",
+    "jquery": "^3.5.1",
+    "px2style": "git+https://github.com/pickles2/px2style.git#develop",
+    "twig": "^1.13.3",
+    "webpack": "^4.39.2",
+    "webpack-stream": "^5.2.1"
+  }
+}
