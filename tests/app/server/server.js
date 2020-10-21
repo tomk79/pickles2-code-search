@@ -8,6 +8,11 @@ const express = require('express'),
 	app = express();
 const server = require('http').Server(app);
 const bodyParser = require('body-parser');
+const io = require('socket.io')(server);
+io.on('connect', socket => {
+  console.log('connect');
+  socket.emit('channel0001', 'connected');
+});
 
 app.use( bodyParser({"limit": "1024mb"}) );
 app.use(bodyParser.urlencoded({

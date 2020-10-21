@@ -7,4 +7,14 @@
 	pickles2CodeSearch.init(function(){
 		console.log('ready.');
 	});
+
+	const socket = io();
+
+	socket.on('connect', () => {
+		console.log('connect');
+	});
+	socket.on('channel0001', (message) => {
+		console.log(`channel0001 - ${message}`);
+	});
+
 })();
