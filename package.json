@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/tomk79/pickles2-code-search#readme",
   "dependencies": {
+    "jquery": "^3.5.1",
     "iterate79": "^1.0.0",
+    "px2style": "git+https://github.com/pickles2/px2style.git#develop",
     "utils79": "0.0.4"
   },
   "devDependencies": {
@@ -38,8 +40,6 @@
     "gulp-sass": "^3.1.0",
     "gulp-uglify": "^2.1.2",
     "html-loader": "^0.5.5",
-    "jquery": "^3.5.1",
-    "px2style": "git+https://github.com/pickles2/px2style.git#develop",
     "socket.io": "^2.3.0",
     "twig": "^1.13.3",
     "webpack": "^4.39.2",

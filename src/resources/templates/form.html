@@ -1,0 +1,33 @@
+<form name="cont_searchform" action="javascript:;" method="get">
+	<div class="input-group">
+		<!--
+			Rubyのアノテーションコメントに倣い、デフォルトを TODO: とした。
+		-->
+		<input type="text" name="keyword" value="TODO:" class="form-control" placeholder="Search for..." />
+		<span class="input-group-addon"><label><input type="checkbox" name="options-regexp" /> RegExp</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="options-ignorecase" /> ignoreCase</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="options-matchfilename" /> matchFileName</label></span>
+		<span class="input-group-btn">
+			<button class="btn btn-primary" type="submit">検索する</button>
+		</span>
+	</div><!-- /input-group -->
+	<div class="input-group">
+		<span class="input-group-addon">target</span>
+		<span class="input-group-addon"><select name="target-dir">
+			<option value="all">すべて</option>
+			<option value="contents_comment">contents comment</option>
+			<option value="sitemaps">sitemaps</option>
+			<option value="home_dir">home_dir (px-files)</option>
+			<option value="sys-caches">_sys, caches</option>
+			<option value="packages">packages</option>
+		</select></span>
+	</div><!-- /input-group -->
+	<div class="input-group">
+		<span class="input-group-addon">ignore paths</span>
+		<span class="input-group-addon"><label><input type="checkbox" name="ignore-contents-comment" /> contents comment</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="ignore-sitemap" /> sitemap</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="ignore-px-files" /> px-files</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="ignore-sys-caches" checked="checked" /> _sys, caches</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="ignore-packages" checked="checked" /> packages</label></span>
+	</div><!-- /input-group -->
+</form>

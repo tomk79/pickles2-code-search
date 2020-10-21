@@ -1121,4 +1121,16 @@ select.px2-input[disabled] {
 
 .pickles2-code-search {
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  -ms-flex-direction: column;
+      flex-direction: column; }
+  .pickles2-code-search__results {
+    margin: 1em auto; }
+  .pickles2-code-search__results > ul {
+    padding: 0; }
+  .pickles2-code-search__results > ul > li {
+    padding: 0.6em 1em;
+    border: 1px solid #bbb;
+    background: #f9f9f9;
+    list-style-type: none;
+    margin: 1em; }

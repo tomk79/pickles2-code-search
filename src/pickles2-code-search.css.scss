@@ -1,5 +1,21 @@
 @import "../node_modules/px2style/dist/styles"; // Px2Style
 
 .pickles2-code-search {
-    display: flex;
+	display: flex;
+	flex-direction: column;
+
+	&__results{
+		margin: 1em auto;
+	}
+	&__results > ul{
+		padding: 0;
+	}
+	&__results > ul > li{
+		padding: 0.6em 1em;
+		border: 1px solid #bbb;
+		background: #f9f9f9;
+		list-style-type: none;
+		margin: 1em;
+	}
+
 }
