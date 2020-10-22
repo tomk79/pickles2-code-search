@@ -1,10 +1,8 @@
 /**
  * main.js
  */
-module.exports = function($elm, options){
+module.exports = function($elm){
 	const main = this;
-	options = options || {};
-
 	const $ = require('jquery');
 	const Px2style = require('px2style'),
 		px2style = new Px2style();
@@ -20,18 +18,26 @@ module.exports = function($elm, options){
 	};
 
 
-	var SinD;
 	var hitCount = 0;
 	var targetCount = 0;
-	var publicCacheDir = pj.getConfig().public_cache_dir || '/caches/';
+
+	this.options = {};
 
 	/**
 	 * Pickles 2 Code Search を初期化します。
 	 */
-	this.init = function( callback ){
+	this.init = function( options, callback ){
 		callback = callback || function(){};
+		options = options || {};
+		options.start = options.start || function(){};
+		options.abort = options.abort || function(){};
+		this.options = options;
 
 		new Promise(function(rlv){rlv();})
+			.then(function(){ return new Promise(function(rlv, rjt){
+				px2style.loading();
+				rlv();
+			}); })
 			.then(function(){ return new Promise(function(rlv, rjt){
 				// elm
 				$elms.elm = $elm;
@@ -58,13 +64,9 @@ module.exports = function($elm, options){
 				$elms.form
 					.find('form')
 						.on('submit', function(){
-							if( SinD ){
-								SinD.cancel();
-								return false;
-							}
 							hitCount = 0;
 							targetCount = 0;
-							$results
+							$elms.results
 								.html('')
 								.append( $elms.resultsProgress.html('') )
 								.append( $elms.resultsUl.html('') )
@@ -77,72 +79,19 @@ module.exports = function($elm, options){
 							var finTargets = decideTargets( $(this) );
 							console.log(finTargets);
 
-							// 検索を実施
-							SinD = new px.SearchInDir(
-								finTargets['target'],
-								{
-									'keyword': keyword ,
-									'filter': finTargets['filter'],
-									'ignore': finTargets['ignore'],
-									'allowRegExp': finTargets.allowRegExp,
-									'ignoreCase': finTargets.ignoreCase,
-									'matchFileName': finTargets.matchFileName,
-									'progress': function( done, max ){
-										targetCount = max;
-										var per = px.php.intval(done/max*100);
-										$elms.progress.find('.progress .progress-bar')
-											.text(done+'/'+max)
-											.css({'width':per+'%'})
-										;
-										updateResultsProgress();
-									},
-									'match': function( file, result ){
-										hitCount ++;
-										updateResultsProgress();
+							var searchOptions = {
+								'keyword': keyword ,
+								'filter': finTargets['filter'],
+								'ignore': finTargets['ignore'],
+								'allowRegExp': finTargets.allowRegExp,
+								'ignoreCase': finTargets.ignoreCase,
+								'matchFileName': finTargets.matchFileName,
+							};
 
-										var src = $('#template-search-result').html();
-										var tplDataObj = {
-											'path': _this.getPath(file) ,
-											'file': file ,
-											'result': result
-										};
+							options.start(searchOptions, function(){
+								console.log('search started.');
+							});
 
-										var html = window.twig({
-											data: src
-										}).render(tplDataObj);
-										var $html = $(html);
-										$html.find('a[data-role=openInFinder]')
-											.click(function(){
-												px.utils.openURL( px.php.dirname($(this).attr('data-file-path')) );
-												return false;
-											})
-										;
-										$html.find('a[data-role=openInTextEditor]')
-											.click(function(){
-												px.openInTextEditor( $(this).attr('data-file-path') );
-												return false;
-											})
-										;
-										$html.find('a[data-role=open]')
-											.click(function(){
-												px.utils.openURL( $(this).attr('data-file-path') );
-												return false;
-											})
-										;
-
-										$elms.resultsUl.append($html);
-									} ,
-									'error': function( file, error ){
-									} ,
-									'complete': function(){
-										updateResultsProgress();
-										setTimeout(function(){
-											$elms.progress.hide('fast');
-											SinD = null;
-										},2000);
-									}
-								}
-							);
 							return false;
 						})
 				;
@@ -150,6 +99,7 @@ module.exports = function($elm, options){
 				rlv();
 			}); })
 			.then(function(){ return new Promise(function(rlv, rjt){
+				px2style.closeLoading();
 				callback();
 				rlv();
 			}); })
@@ -178,74 +128,21 @@ module.exports = function($elm, options){
 
 		var targetDir = $form.find('select[name=target-dir]').val();
 		switch(targetDir){
-			case 'home_dir':
-				rtn['target'].push(px.fs.realpathSync(pj.get('path')+'/'+pj.get('home_dir'))+'/**/*');
-				break;
 			case 'contents_comment':
-				rtn['target'].push(px.fs.realpathSync(pj.get('path'))+'/**/*');
 				rtn['filter'].push( new RegExp( px.php.preg_quote('/comments.ignore/comment.') ) );
-				break;
-			case 'sitemaps':
-				rtn['target'].push(px.fs.realpathSync(pj.get('path')+'/'+pj.get('home_dir')+'/sitemaps')+'/**/*');
-				break;
-			case 'sys-caches':
-				rtn['target'].push(px.fs.realpathSync(pj.get('path')+'/'+publicCacheDir)+'/**/*');
-				rtn['target'].push(px.fs.realpathSync(pj.get('path')+'/'+pj.get('home_dir')+'/_sys')+'/**/*');
-				break;
-			case 'packages':
-				if(pj.get_realpath_composer_root()){
-					rtn['target'].push(px.fs.realpathSync(pj.get_realpath_composer_root()+'vendor')+'/**/*');
-					rtn['target'].push(px.fs.realpathSync(pj.get_realpath_composer_root()+'composer.json'));
-					rtn['target'].push(px.fs.realpathSync(pj.get_realpath_composer_root()+'composer.lock'));
-				}
-				if(pj.get_realpath_npm_root()){
-					rtn['target'].push(px.fs.realpathSync(pj.get_realpath_npm_root()+'node_modules')+'/**/*');
-					rtn['target'].push(px.fs.realpathSync(pj.get_realpath_npm_root()+'package.json'));
-				}
 				break;
 			case 'all':
 			default:
-				rtn['target'].push(px.fs.realpathSync(pj.get('path'))+'/**/*');
 				break;
 		}
 
-		function setIgnore( checkbox, path ){
-			if( !px.utils79.is_dir(path) ){
-				return;
-			}
-			path = px.fs.realpathSync(path);
-			path = new RegExp( px.php.preg_quote( path ) );
-			if( $form.find('input[name=ignore-'+checkbox+']:checked').size() ){
-				rtn['ignore'].push( path );
-			}
-			return;
-		}
-
-		if( $form.find('input[name=target-contents-comment]:checked').size() ){
-			rtn['ignore'].push( new RegExp( px.php.preg_quote('/comments.ignore/comment.') ) );
-		}
-		setIgnore( 'sitemap', pj.get('path')+'/'+pj.get('home_dir')+'sitemaps/' );
-		setIgnore( 'px-files', pj.get('path')+'/'+pj.get('home_dir') );
-		setIgnore( 'sys-caches', pj.get('path')+'/'+publicCacheDir );
-		setIgnore( 'sys-caches', pj.get('path')+'/'+pj.get('home_dir')+'_sys/' );
-
-		if(pj.get_realpath_composer_root()){
-			setIgnore( 'packages', pj.get_realpath_composer_root()+'vendor/' );
-			setIgnore( 'packages', pj.get_realpath_composer_root()+'composer.json' );
-			setIgnore( 'packages', pj.get_realpath_composer_root()+'composer.lock' );
-		}
-		if(pj.get_realpath_npm_root()){
-			setIgnore( 'packages', pj.get_realpath_npm_root()+'node_modules/' );
-			setIgnore( 'packages', pj.get_realpath_npm_root()+'package.json' );
-		}
-
-		if( $form.find('input[name=options-regexp]:checked').size() ){
+		if( $form.find('input[name=options-regexp]:checked').length ){
 			rtn.allowRegExp = true;
 		}
-		if( $form.find('input[name=options-ignorecase]:checked').size() ){
+		if( $form.find('input[name=options-ignorecase]:checked').length ){
 			rtn.ignoreCase = true;
 		}
-		if( $form.find('input[name=options-matchfilename]:checked').size() ){
+		if( $form.find('input[name=options-matchfilename]:checked').length ){
 			rtn.matchFileName = true;
 		}
 
