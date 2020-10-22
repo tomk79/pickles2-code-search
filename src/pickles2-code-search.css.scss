@@ -1,6 +1,7 @@
-@import "../node_modules/px2style/dist/styles"; // Px2Style
 
 .pickles2-code-search {
+	@import "../node_modules/px2style/dist/styles"; // Px2Style
+
 	display: flex;
 	flex-direction: column;
 

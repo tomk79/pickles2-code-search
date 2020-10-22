@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/tomk79/pickles2-code-search#readme",
   "dependencies": {
-    "jquery": "^3.5.1",
     "iterate79": "^1.0.0",
+    "jquery": "^3.5.1",
     "px2style": "git+https://github.com/pickles2/px2style.git#develop",
     "utils79": "0.0.4"
   },

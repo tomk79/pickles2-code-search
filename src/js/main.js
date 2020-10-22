@@ -9,6 +9,7 @@ module.exports = function($elm, options){
 	const Px2style = require('px2style'),
 		px2style = new Px2style();
 	this.px2style = px2style;
+	this.px2style.setConfig('additionalClassName', 'pickles2-code-search');
 
 	const $elms = {};
 	const templates = {
@@ -17,6 +18,7 @@ module.exports = function($elm, options){
 		"progress": require('../resources/templates/progress.html'),
 		"result": require('../resources/templates/result.html'),
 	};
+
 
 	var SinD;
 	var hitCount = 0;
