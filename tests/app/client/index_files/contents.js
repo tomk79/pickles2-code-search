@@ -15,81 +15,29 @@
 	);
 	pickles2CodeSearch.init(
 		{
-			'start': function(searchOptions, callback){
+			'start': function(keyword, searchOptions, callback){
 				console.log('----- start', searchOptions);
 
-				if( SinD ){
-					SinD.cancel();
-					return false;
-				}
-
-				// 検索を実施
-				SinD = new px.SearchInDir(
-					finTargets['target'],
-					{
-						'keyword': keyword ,
-						'filter': finTargets['filter'],
-						'ignore': finTargets['ignore'],
-						'allowRegExp': finTargets.allowRegExp,
-						'ignoreCase': finTargets.ignoreCase,
-						'matchFileName': finTargets.matchFileName,
-						'progress': function( done, max ){
-							targetCount = max;
-							var per = px.php.intval(done/max*100);
-							$elms.progress.find('.progress .progress-bar')
-								.text(done+'/'+max)
-								.css({'width':per+'%'})
-							;
-							updateResultsProgress();
-						},
-						'match': function( file, result ){
-							hitCount ++;
-							updateResultsProgress();
-
-							var src = $('#template-search-result').html();
-							var tplDataObj = {
-								'path': _this.getPath(file) ,
-								'file': file ,
-								'result': result
-							};
-
-							var html = window.twig({
-								data: src
-							}).render(tplDataObj);
-							var $html = $(html);
-							$html.find('a[data-role=openInFinder]')
-								.click(function(){
-									px.utils.openURL( px.php.dirname($(this).attr('data-file-path')) );
-									return false;
-								})
-							;
-							$html.find('a[data-role=openInTextEditor]')
-								.click(function(){
-									px.openInTextEditor( $(this).attr('data-file-path') );
-									return false;
-								})
-							;
-							$html.find('a[data-role=open]')
-								.click(function(){
-									px.utils.openURL( $(this).attr('data-file-path') );
-									return false;
-								})
-							;
-
-							$elms.resultsUl.append($html);
-						} ,
-						'error': function( file, error ){
-						} ,
-						'complete': function(){
-							updateResultsProgress();
-							setTimeout(function(){
-								$elms.progress.hide('fast');
-								SinD = null;
-							},2000);
-						}
-					}
-				);
 				callback();
+
+				setTimeout(function(){
+					pickles2CodeSearch.report({
+						'total': 100,
+						'done': 98,
+						'hit': 4,
+						'path': '/px-files/sitemaps/sitemap.csv',
+						'count': 3,
+					});
+				}, 2000);
+				setTimeout(function(){
+					pickles2CodeSearch.report({
+						'total': 110,
+						'done': 101,
+						'hit': 5,
+						'path': '/px-files/sitemaps/sitemap.csv',
+						'count': 6,
+					});
+				}, 3000);
 
 			},
 			'abort': function(){

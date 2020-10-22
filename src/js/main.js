@@ -76,19 +76,31 @@ module.exports = function($elm){
 
 
 							var keyword = $(this).find('[name=keyword]').val();
-							var finTargets = decideTargets( $(this) );
-							console.log(finTargets);
-
 							var searchOptions = {
-								'keyword': keyword ,
-								'filter': finTargets['filter'],
-								'ignore': finTargets['ignore'],
-								'allowRegExp': finTargets.allowRegExp,
-								'ignoreCase': finTargets.ignoreCase,
-								'matchFileName': finTargets.matchFileName,
+								'target': $(this).find('select[name=target-dir]').val(),
+								'ignore': [],
+								'allowRegExp': ($(this).find('input[name=options-regexp]:checked').length ? true : false),
+								'caseSensitive': ($(this).find('input[name=options-casesensitive]:checked').length ? true : false),
+								'matchFileName': ($(this).find('input[name=options-matchfilename]:checked').length ? true : false)
 							};
+							if( $(this).find('input[name=ignore-contents-comment]:checked').length ){
+								searchOptions.ignore.push('contents-comment');
+							}
+							if( $(this).find('input[name=ignore-sitemap]:checked').length ){
+								searchOptions.ignore.push('sitemap');
+							}
+							if( $(this).find('input[name=ignore-px-files]:checked').length ){
+								searchOptions.ignore.push('px-files');
+							}
+							if( $(this).find('input[name=ignore-sys-caches]:checked').length ){
+								searchOptions.ignore.push('sys');
+								searchOptions.ignore.push('caches');
+							}
+							if( $(this).find('input[name=ignore-packages]:checked').length ){
+								searchOptions.ignore.push('packages');
+							}
 
-							options.start(searchOptions, function(){
+							options.start(keyword, searchOptions, function(){
 								console.log('search started.');
 							});
 
@@ -106,47 +118,18 @@ module.exports = function($elm){
 		;
 	}
 
+	this.report = function(result){
+		targetCount = result.total;
+		hitCount = result.hit;
+		updateResultsProgress();
+		console.log(result);
+	};
+
 	/**
 	 * updateResultsProgress
 	 */
 	function updateResultsProgress(){
 		$elms.resultsProgress.html(targetCount + 'ファイル中、' + hitCount + 'ファイルがヒット')
-	}
-
-	/**
-	 * decideTargets
-	 */
-	function decideTargets( $form ){
-		var rtn = {
-			'target': [],
-			'filter':[],
-			'ignore': [],
-			'allowRegExp': false,
-			'ignoreCase': false,
-			'matchFileName': false
-		};
-
-		var targetDir = $form.find('select[name=target-dir]').val();
-		switch(targetDir){
-			case 'contents_comment':
-				rtn['filter'].push( new RegExp( px.php.preg_quote('/comments.ignore/comment.') ) );
-				break;
-			case 'all':
-			default:
-				break;
-		}
-
-		if( $form.find('input[name=options-regexp]:checked').length ){
-			rtn.allowRegExp = true;
-		}
-		if( $form.find('input[name=options-ignorecase]:checked').length ){
-			rtn.ignoreCase = true;
-		}
-		if( $form.find('input[name=options-matchfilename]:checked').length ){
-			rtn.matchFileName = true;
-		}
-
-		return rtn;
 	}
 
 	/**

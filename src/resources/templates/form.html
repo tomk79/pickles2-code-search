@@ -3,16 +3,18 @@
 		<!--
 			Rubyのアノテーションコメントに倣い、デフォルトを TODO: とした。
 		-->
-		<input type="text" name="keyword" value="TODO:" class="form-control" placeholder="Search for..." />
-		<span class="input-group-addon"><label><input type="checkbox" name="options-regexp" /> RegExp</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="options-ignorecase" /> ignoreCase</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="options-matchfilename" /> matchFileName</label></span>
+		<input type="text" name="keyword" value="TODO:" class="px2-input" placeholder="Search for..." />
 		<span class="input-group-btn">
-			<button class="btn btn-primary" type="submit">検索する</button>
+			<button class="px2-btn px2-btn--primary" type="submit">検索する</button>
 		</span>
 	</div><!-- /input-group -->
 	<div class="input-group">
-		<span class="input-group-addon">target</span>
+		<span class="input-group-addon"><label><input type="checkbox" name="options-regexp" /> 正規表現を有効にする</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="options-casesensitive" /> 大文字/小文字を区別する</label></span>
+		<span class="input-group-addon"><label><input type="checkbox" name="options-matchfilename" /> ファイル名にマッチする</label></span>
+	</div><!-- /input-group -->
+	<div class="input-group">
+		<span class="input-group-addon">検索範囲</span>
 		<span class="input-group-addon"><select name="target-dir">
 			<option value="all">すべて</option>
 			<option value="contents_comment">contents comment</option>
@@ -23,7 +25,7 @@
 		</select></span>
 	</div><!-- /input-group -->
 	<div class="input-group">
-		<span class="input-group-addon">ignore paths</span>
+		<span class="input-group-addon">除外する範囲</span>
 		<span class="input-group-addon"><label><input type="checkbox" name="ignore-contents-comment" /> contents comment</label></span>
 		<span class="input-group-addon"><label><input type="checkbox" name="ignore-sitemap" /> sitemap</label></span>
 		<span class="input-group-addon"><label><input type="checkbox" name="ignore-px-files" /> px-files</label></span>
