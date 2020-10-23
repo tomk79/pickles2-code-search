@@ -12,8 +12,10 @@ module.exports = function($elm){
 
 	const $elms = {};
 
+	var mode = 'standby';
 	var hitCount = 0;
 	var targetCount = 0;
+	var doneCount = 0;
 
 	this.options = {};
 
@@ -58,8 +60,12 @@ module.exports = function($elm){
 				$elms.form
 					.find('form')
 						.on('submit', function(){
-							hitCount = 0;
 							targetCount = 0;
+							doneCount = 0;
+							hitCount = 0;
+
+							setMode('active');
+
 							$elms.results
 								.html('')
 								.append( $elms.resultsProgress.html('') )
@@ -67,7 +73,13 @@ module.exports = function($elm){
 							;
 							updateResultsProgress();
 							$elms.progress.html( template.bind('progress', {}) ).show();
+							$elms.progress.find('.pickles2-code-search__btn-abort').on('click', function(){
+								options.abort(function(){
+									setMode('standby');
+								});
+							});
 
+							$elms.form.find('input').attr({'disabled': true});
 
 							var keyword = $(this).find('[name=keyword]').val();
 							var searchOptions = {
@@ -113,18 +125,42 @@ module.exports = function($elm){
 	}
 
 	/**
-	 * 進捗を報告
+	 * 進捗を更新する
 	 */
-	this.progress = function(result){
-		targetCount = result.total;
-		hitCount = result.hit;
-		updateResultsProgress();
-		console.log(result);
-		if( result.path ){
-			var resultUnit = template.bind('result', result);
-			$elms.resultsUl.append(resultUnit);
+	this.update = function(result){
+		if( mode == 'standby' ){
+			return;
 		}
+		targetCount = result.total;
+		doneCount = result.done;
+		console.log(result);
+		if( result.new && result.new.length ){
+			for(var i = 0; i < result.new.length; i ++){
+				hitCount ++;
+				var resultUnit = template.bind('result', result.new[i]);
+				$elms.resultsUl.append(resultUnit);
+			}
+		}
+		updateResultsProgress();
+		if( targetCount == doneCount ){
+			setMode('standby');
+		}
+		return;
 	};
+
+
+	/**
+	 * モードを変更する
+	 */
+	function setMode(modeTo){
+		mode = modeTo;
+		if(mode == 'standby'){
+			$elms.form.find('input,textarea,button').attr({'disabled': false});
+			$elms.progress.html('');
+		}else if(mode == 'active'){
+			$elms.form.find('input,textarea,button').attr({'disabled': true});
+		}
+	}
 
 	/**
 	 * updateResultsProgress

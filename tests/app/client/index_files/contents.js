@@ -21,27 +21,44 @@
 				callback();
 
 				setTimeout(function(){
-					pickles2CodeSearch.progress({
+					pickles2CodeSearch.update({
 						'total': 100,
 						'done': 98,
-						'hit': 4,
-						'path': '/px-files/sitemaps/sitemap.csv',
-						'count': 3,
+						'new': [
+							{
+								'path': '/px-files/sitemaps/sitemap.csv',
+								'count': 3
+							}
+						]
 					});
 				}, 2000);
 				setTimeout(function(){
-					pickles2CodeSearch.progress({
+					pickles2CodeSearch.update({
 						'total': 110,
 						'done': 101,
-						'hit': 5,
-						'path': '/px-files/sitemaps/sitemap.csv',
-						'count': 6,
+						'new': [
+							{
+								'path': '/px-files/sitemaps/sitemap.csv',
+								'count': 6
+							},
+							{
+								'path': '/px-files/sitemaps/sitemap.csv',
+								'count': 6
+							}
+						]
 					});
 				}, 3000);
+				setTimeout(function(){
+					pickles2CodeSearch.update({
+						'total': 111,
+						'done': 111,
+					});
+				}, 3500);
 
 			},
-			'abort': function(){
+			'abort': function(callback){
 				console.log('abort -----');
+				callback();
 			}
 		},
 		function(){
