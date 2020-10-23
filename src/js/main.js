@@ -8,15 +8,9 @@ module.exports = function($elm){
 		px2style = new Px2style();
 	this.px2style = px2style;
 	this.px2style.setConfig('additionalClassName', 'pickles2-code-search');
+	const template = new (require('./template.js'));
 
 	const $elms = {};
-	const templates = {
-		"mainframe": require('../resources/templates/mainframe.html'),
-		"form": require('../resources/templates/form.html'),
-		"progress": require('../resources/templates/progress.html'),
-		"result": require('../resources/templates/result.html'),
-	};
-
 
 	var hitCount = 0;
 	var targetCount = 0;
@@ -43,7 +37,7 @@ module.exports = function($elm){
 				$elms.elm = $elm;
 
 				$elm.classList.add("pickles2-code-search");
-				$elm.innerHTML = templates.mainframe;
+				$elm.innerHTML = template.bind('mainframe', {});
 
 				rlv();
 			}); })
@@ -54,7 +48,7 @@ module.exports = function($elm){
 				$elms.results = $('.pickles2-code-search__results');
 				$elms.resultsProgress = $('<div>');
 				$elms.resultsUl = $('<ul>');
-				$elms.tpl_searchForm = templates.form;
+				$elms.tpl_searchForm = template.bind('form', {});
 
 				rlv();
 			}); })
@@ -72,7 +66,7 @@ module.exports = function($elm){
 								.append( $elms.resultsUl.html('') )
 							;
 							updateResultsProgress();
-							$elms.progress.html( templates.progress ).show();
+							$elms.progress.html( template.bind('progress', {}) ).show();
 
 
 							var keyword = $(this).find('[name=keyword]').val();
@@ -118,26 +112,26 @@ module.exports = function($elm){
 		;
 	}
 
-	this.report = function(result){
+	/**
+	 * 進捗を報告
+	 */
+	this.progress = function(result){
 		targetCount = result.total;
 		hitCount = result.hit;
 		updateResultsProgress();
 		console.log(result);
+		if( result.path ){
+			var resultUnit = template.bind('result', result);
+			$elms.resultsUl.append(resultUnit);
+		}
 	};
 
 	/**
 	 * updateResultsProgress
 	 */
 	function updateResultsProgress(){
-		$elms.resultsProgress.html(targetCount + 'ファイル中、' + hitCount + 'ファイルがヒット')
-	}
-
-	/**
-	 * getPath
-	 */
-	this.getPath = function(file){
-		file = file.replace( new RegExp('^'+px.php.preg_quote(pj.get('path'))), '' );
-		return file;
+		$elms.resultsProgress.html(targetCount + 'ファイル中、' + hitCount + 'ファイルがヒット');
+		return;
 	}
 
 }

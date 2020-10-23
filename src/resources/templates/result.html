@@ -1,8 +1,8 @@
 <li>
-	<div><strong class="selectable">{{ path }}</strong> ({{result.count}})</div>
+	<div><strong class="selectable">{{ path }}</strong> ({{count}})</div>
 	<ul>
-		<li><a href="javascript:;" data-file-path="{{ file }}" data-file-type="{{result.type}}" data-role="openInTextEditor">テキストエディタで開く</a></li>
-		<li><a href="javascript:;" data-file-path="{{ file }}" data-file-type="{{result.type}}" data-role="openInFinder">フォルダを開く</a></li>
-		<li><a href="javascript:;" data-file-path="{{ file }}" data-file-type="{{result.type}}" data-role="open">関連付けられたアプリケーションで開く</a></li>
+		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="openInTextEditor">テキストエディタで開く</a></li>
+		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="openInFinder">フォルダを開く</a></li>
+		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="open">関連付けられたアプリケーションで開く</a></li>
 	</ul>
 </li>

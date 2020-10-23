@@ -21,7 +21,7 @@
 				callback();
 
 				setTimeout(function(){
-					pickles2CodeSearch.report({
+					pickles2CodeSearch.progress({
 						'total': 100,
 						'done': 98,
 						'hit': 4,
@@ -30,7 +30,7 @@
 					});
 				}, 2000);
 				setTimeout(function(){
-					pickles2CodeSearch.report({
+					pickles2CodeSearch.progress({
 						'total': 110,
 						'done': 101,
 						'hit': 5,
