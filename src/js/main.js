@@ -142,12 +142,15 @@ module.exports = function($elm){
 			}
 		}
 		updateResultsProgress();
-		if( targetCount == doneCount ){
-			setMode('standby');
-		}
 		return;
 	};
 
+	/**
+	 * 検索処理の完了を宣言する
+	 */
+	this.finished = function(){
+		setMode('standby');
+	}
 
 	/**
 	 * モードを変更する

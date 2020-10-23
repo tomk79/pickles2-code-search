@@ -49,10 +49,7 @@
 					});
 				}, 3000);
 				setTimeout(function(){
-					pickles2CodeSearch.update({
-						'total': 111,
-						'done': 111,
-					});
+					pickles2CodeSearch.finished();
 				}, 3500);
 
 			},
