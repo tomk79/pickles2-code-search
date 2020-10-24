@@ -7,17 +7,41 @@
 	flex-direction: column;
 
 	&__results{
-		margin: 1em auto;
-	}
-	&__results > ul{
-		padding: 0;
-	}
-	&__results > ul > li{
-		padding: 0.6em 1em;
-		border: 1px solid #bbb;
-		background: #f9f9f9;
-		list-style-type: none;
-		margin: 1em;
+		flex-grow: 1;
+		overflow: auto;
+		margin: 1em 0;
+
+		> ul{
+			padding: 0;
+		}
+		> ul > li{
+			padding: 0.6em 1em;
+			border: 1px solid #bbb;
+			background: #f9f9f9;
+			list-style-type: none;
+			margin: 1em;
+		}
 	}
 
+
+	&__highlight-list {
+		> ul {
+			margin: 0.5em 0;
+			padding: 0;
+			> li {
+				list-style-type: none;
+				color: #999;
+				font-size: 86%;
+				strong {
+					font-weight: bold;
+					color: #333;
+				}
+			}
+		}
+	}
+
+	&__progress-text {
+		text-align: center;
+		font-size: 86%;
+	}
 }

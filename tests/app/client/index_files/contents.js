@@ -27,7 +27,11 @@
 						'new': [
 							{
 								'path': '/px-files/sitemaps/sitemap.csv',
-								'count': 3
+								'highlights': [
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample'
+								]
 							}
 						]
 					});
@@ -39,11 +43,19 @@
 						'new': [
 							{
 								'path': '/px-files/sitemaps/sitemap.csv',
-								'count': 6
+								'highlights': [
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample'
+								]
 							},
 							{
 								'path': '/px-files/sitemaps/sitemap.csv',
-								'count': 6
+								'highlights': [
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample',
+									'sample <strong>hit</strong> sample'
+								]
 							}
 						]
 					});

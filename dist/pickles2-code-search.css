@@ -7696,12 +7696,28 @@
     border-right-width: 1px;
     border-radius: 0 .25rem .25rem 0 / 0 .25rem .25rem 0; }
   .pickles2-code-search__results {
-    margin: 1em auto; }
-  .pickles2-code-search__results > ul {
+    -ms-flex-positive: 1;
+        flex-grow: 1;
+    overflow: auto;
+    margin: 1em 0; }
+    .pickles2-code-search__results > ul {
+      padding: 0; }
+    .pickles2-code-search__results > ul > li {
+      padding: 0.6em 1em;
+      border: 1px solid #bbb;
+      background: #f9f9f9;
+      list-style-type: none;
+      margin: 1em; }
+  .pickles2-code-search__highlight-list > ul {
+    margin: 0.5em 0;
     padding: 0; }
-  .pickles2-code-search__results > ul > li {
-    padding: 0.6em 1em;
-    border: 1px solid #bbb;
-    background: #f9f9f9;
-    list-style-type: none;
-    margin: 1em; }
+    .pickles2-code-search__highlight-list > ul > li {
+      list-style-type: none;
+      color: #999;
+      font-size: 86%; }
+      .pickles2-code-search__highlight-list > ul > li strong {
+        font-weight: bold;
+        color: #333; }
+  .pickles2-code-search__progress-text {
+    text-align: center;
+    font-size: 86%; }

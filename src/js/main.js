@@ -48,7 +48,7 @@ module.exports = function($elm){
 				$elms.form = $('.pickles2-code-search__form');
 				$elms.progress = $('.pickles2-code-search__progress');
 				$elms.results = $('.pickles2-code-search__results');
-				$elms.resultsProgress = $('<div>');
+				$elms.resultsProgress = $('<div>').addClass('pickles2-code-search__progress-text');
 				$elms.resultsUl = $('<ul>');
 				$elms.tpl_searchForm = template.bind('form', {});
 

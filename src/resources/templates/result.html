@@ -1,8 +1,17 @@
 <li>
-	<div><strong class="selectable">{{ path }}</strong> ({{count}})</div>
-	<ul>
-		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="openInTextEditor">テキストエディタで開く</a></li>
-		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="openInFinder">フォルダを開く</a></li>
-		<li><a href="javascript:;" data-path="{{ path }}" data-file-type="{{type}}" data-role="open">関連付けられたアプリケーションで開く</a></li>
+	<div><strong class="selectable">{{ path|e }}</strong> ({{ highlights|length }})</div>
+
+	<div class="pickles2-code-search__highlight-list">
+		<ul>
+			{% for highlight in highlights %}
+				<li>{{ highlight }}</li>
+			{% endfor %}
+		</ul>
+	</div>
+
+	<ul class="px2-horizontal-list">
+		<li><a href="javascript:;" data-path="{{ path|e }}" data-role="openInTextEditor" class="px2-a">テキストエディタで開く</a></li>
+		<li><a href="javascript:;" data-path="{{ path|e }}" data-role="openInFinder" class="px2-a">フォルダを開く</a></li>
+		<li><a href="javascript:;" data-path="{{ path|e }}" data-role="open" class="px2-a">関連付けられたアプリケーションで開く</a></li>
 	</ul>
 </li>
