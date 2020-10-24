@@ -50,7 +50,7 @@
 								]
 							},
 							{
-								'path': '/px-files/sitemaps/test2.csv',
+								'path': '/px-files/sitemaps/test2test2test2test2test2test2test2test2test2test2test2test2test2test2.csv',
 								'highlights': [
 									'sample <strong>hit</strong> sample',
 									'sample <strong>hit</strong> sample',
