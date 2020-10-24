@@ -27,6 +27,7 @@ module.exports = function($elm){
 		options = options || {};
 		options.start = options.start || function(){};
 		options.abort = options.abort || function(){};
+		options.tools = options.tools || [];
 		this.options = options;
 
 		new Promise(function(rlv){rlv();})
@@ -146,8 +147,18 @@ module.exports = function($elm){
 		if( result.new && result.new.length ){
 			for(var i = 0; i < result.new.length; i ++){
 				hitCount ++;
-				var resultUnit = template.bind('result', result.new[i]);
-				$elms.resultsUl.append(resultUnit);
+				var opt = result.new[i];
+				opt.tools = main.options.tools;
+				var resultUnit = template.bind('result', opt);
+				var $resultUnit = $(resultUnit);
+				for( var i2 in main.options.tools ){
+					$resultUnit.find('a[data-tool-id='+i2+']').on('click', function(){
+						var toolId = $(this).attr('data-tool-id');
+						var path = $(this).attr('data-path');
+						main.options.tools[toolId].open(path);
+					});
+				}
+				$elms.resultsUl.append($resultUnit);
 			}
 		}
 		updateResultsProgress();

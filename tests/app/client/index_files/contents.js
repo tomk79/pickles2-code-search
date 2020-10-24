@@ -42,7 +42,7 @@
 						'done': 101,
 						'new': [
 							{
-								'path': '/px-files/sitemaps/sitemap.csv',
+								'path': '/px-files/sitemaps/test.csv',
 								'highlights': [
 									'sample <strong>hit</strong> sample',
 									'sample <strong>hit</strong> sample',
@@ -50,7 +50,7 @@
 								]
 							},
 							{
-								'path': '/px-files/sitemaps/sitemap.csv',
+								'path': '/px-files/sitemaps/test2.csv',
 								'highlights': [
 									'sample <strong>hit</strong> sample',
 									'sample <strong>hit</strong> sample',
@@ -74,7 +74,21 @@
 			'abort': function(callback){
 				console.log('abort -----');
 				callback();
-			}
+			},
+			'tools': [
+				{
+					"label": "エディタA",
+					"open": function(path){
+						alert(path + ' with Editor A');
+					}
+				},
+				{
+					"label": "エディタB",
+					"open": function(path){
+						alert(path + ' with Editor B');
+					}
+				}
+			]
 		},
 		function(){
 			console.log('ready.');
