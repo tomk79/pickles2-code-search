@@ -158,6 +158,7 @@ module.exports = function($elm){
 	 * 検索処理の完了を宣言する
 	 */
 	this.finished = function(){
+		updateResultsProgress();
 		setMode('standby');
 	}
 
@@ -167,8 +168,10 @@ module.exports = function($elm){
 	function setMode(modeTo){
 		mode = modeTo;
 		if(mode == 'standby'){
-			$elms.form.find('input,textarea,button').attr({'disabled': false});
-			$elms.progress.html('');
+			setTimeout(function(){
+				$elms.form.find('input,textarea,button').attr({'disabled': false});
+				$elms.progress.html('');
+			}, 500);
 		}else if(mode == 'active'){
 			$elms.form.find('input,textarea,button').attr({'disabled': true});
 		}
@@ -179,6 +182,10 @@ module.exports = function($elm){
 	 */
 	function updateResultsProgress(){
 		$elms.resultsProgress.html(targetCount + 'ファイル中、' + hitCount + 'ファイルがヒット');
+		$elms.progress.find('.progress-bar')
+			.css({'width': Number(doneCount/targetCount*100)+'%'})
+			.text(doneCount+'/'+targetCount)
+		;
 		return;
 	}
 

@@ -49,8 +49,14 @@
 					});
 				}, 3000);
 				setTimeout(function(){
+					pickles2CodeSearch.update({
+						'total': 110,
+						'done': 110
+					});
+				}, 3200);
+				setTimeout(function(){
 					pickles2CodeSearch.finished();
-				}, 3500);
+				}, 3800);
 
 			},
 			'abort': function(callback){
