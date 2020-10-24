@@ -136,9 +136,13 @@ module.exports = function($elm){
 		if( mode == 'standby' ){
 			return;
 		}
-		targetCount = result.total;
-		doneCount = result.done;
-		console.log(result);
+		// console.log(result);
+		if( result.total ){
+			targetCount = result.total;
+		}
+		if( result.done ){
+			doneCount = result.done;
+		}
 		if( result.new && result.new.length ){
 			for(var i = 0; i < result.new.length; i ++){
 				hitCount ++;
