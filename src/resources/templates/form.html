@@ -1,21 +1,18 @@
-<form name="cont_searchform" action="javascript:;" method="get">
-	<div class="input-group">
-		<!--
-			Rubyのアノテーションコメントに倣い、デフォルトを TODO: とした。
-		-->
-		<input type="text" name="keyword" value="TODO:" class="px2-input" placeholder="Search for..." />
-		<span class="input-group-btn">
+<form name="pickles2-code-search__searchform" action="javascript:;" method="get">
+	<div class="px2-p">
+		<div class="px2-input-group">
+			<input type="text" name="keyword" value="" class="px2-input" placeholder="" />
 			<button class="px2-btn px2-btn--primary" type="submit">検索する</button>
-		</span>
-	</div><!-- /input-group -->
-	<div class="input-group">
-		<span class="input-group-addon"><label><input type="checkbox" name="options-regexp" /> 正規表現を有効にする</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="options-casesensitive" /> 大文字/小文字を区別する</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="options-matchfilename" /> ファイル名にマッチする</label></span>
-	</div><!-- /input-group -->
-	<div class="input-group">
-		<span class="input-group-addon">検索範囲</span>
-		<span class="input-group-addon"><select name="target-dir">
+		</div>
+	</div>
+	<div class="px2-p">
+		<span><label><input type="checkbox" name="options-regexp" /> 正規表現を有効にする</label></span>
+		<span><label><input type="checkbox" name="options-casesensitive" /> 大文字/小文字を区別する</label></span>
+		<span><label><input type="checkbox" name="options-matchfilename" /> ファイル名にマッチする</label></span>
+	</div>
+	<div class="px2-p">
+		<span>検索範囲</span>
+		<span><select name="target-dir">
 			<option value="all">すべて</option>
 			<option value="contents_comment">contents comment</option>
 			<option value="sitemaps">sitemaps</option>
@@ -23,13 +20,13 @@
 			<option value="sys-caches">_sys, caches</option>
 			<option value="packages">packages</option>
 		</select></span>
-	</div><!-- /input-group -->
-	<div class="input-group">
-		<span class="input-group-addon">除外する範囲</span>
-		<span class="input-group-addon"><label><input type="checkbox" name="ignore-contents-comment" /> contents comment</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="ignore-sitemap" /> sitemap</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="ignore-px-files" /> px-files</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="ignore-sys-caches" checked="checked" /> _sys, caches</label></span>
-		<span class="input-group-addon"><label><input type="checkbox" name="ignore-packages" checked="checked" /> packages</label></span>
-	</div><!-- /input-group -->
+	</div>
+	<div class="px2-p">
+		<span>除外する範囲</span>
+		<span><label><input type="checkbox" name="ignore-contents-comment" /> contents comment</label></span>
+		<span><label><input type="checkbox" name="ignore-sitemap" /> sitemap</label></span>
+		<span><label><input type="checkbox" name="ignore-px-files" /> px-files</label></span>
+		<span><label><input type="checkbox" name="ignore-sys-caches" checked="checked" /> _sys, caches</label></span>
+		<span><label><input type="checkbox" name="ignore-packages" checked="checked" /> packages</label></span>
+	</div>
 </form>

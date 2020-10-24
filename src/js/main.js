@@ -82,6 +82,11 @@ module.exports = function($elm){
 							$elms.form.find('input').attr({'disabled': true});
 
 							var keyword = $(this).find('[name=keyword]').val();
+							if( !keyword.length ){
+								alert('キーワードを入力してください。');
+								setMode('standby');
+								return false;
+							}
 							var searchOptions = {
 								'target': $(this).find('select[name=target-dir]').val(),
 								'ignore': [],

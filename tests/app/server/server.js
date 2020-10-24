@@ -13,6 +13,7 @@ io.on('connect', socket => {
   console.log('connect');
   socket.emit('channel0001', 'connected');
 });
+const it79 = require('iterate79');
 
 app.use( bodyParser({"limit": "1024mb"}) );
 app.use(bodyParser.urlencoded({
